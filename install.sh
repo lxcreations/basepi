@@ -95,11 +95,13 @@ fi
 #if snmp is not installed, mark it for install
 if [ ! -e /usr/sbin/snmpd ]; then
     APTINSTALLS="$APTINSTALLS snmpd snmp"
+    echo "NOTES:snmpd.txt-Modify /etc/snmp/snmpd.conf for best results of snmp monitoring"
 fi
 
 #if samba is not installed, mark it for install
 if [ ! -e /usr/sbin/samba ]; then
     APTINSTALLS="$APTINSTALLS samba samba-common-bin"
+    echo "NOTES:samba.txt-Modify /etc/samba/smb.conf for best results of file sharing"
 fi
 
 #install marked packages and log the install
@@ -124,10 +126,6 @@ echo $APTINSTALLS
 if [ "$HOSTNAME" = "raspberrypi" ]; then
   echo "NOTES:hostname.txt-Hostname is set as default, you may want to change it to a specific name."
 fi
-
-#suggest changes on system config files
-echo "NOTES:snmpd.txt-Modify /etc/snmp/snmpd.conf for best results of snmp monitoring"
-echo "NOTES:samba.txt-Modify /etc/samba/smb.conf for best results of file sharing"
 
 #inform about updating the currently used bash shell
 echo "To refresh the bash console, run command"
