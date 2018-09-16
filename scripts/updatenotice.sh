@@ -26,6 +26,8 @@ echo "ssh into "$MYIP" and run command:" >> $MSGFILE
 echo "agall" >> $MSGFILE
 echo "OR" >> $MSGFILE
 echo "sudo apt-get update; sudo apt-get upgrade" >> $MSGFILE
+echo ""
+echo "Run basepiup from the shell to get basepi updates"
 
 sendemail -f $FROM -t $TO -u $SUBJECT -o message-file=$MSGFILE -s $SERVER -xu $USER -xp $PASS -o tls=auto -vvv > ~/.basepi/logs/updatenotice_sendemail_$STAMP.log
 

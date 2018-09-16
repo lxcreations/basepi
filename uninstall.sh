@@ -18,7 +18,10 @@ done
 
 #remove cron entries
 ( crontab -l | grep -v -F "$UPDATESCRIPTBASE" ) | crontab -
+
+#remove basepi config directory
 rm -rf ~/.basepi
+
 echo "Uninstalled"
 echo "To refresh the bash console, run command"
 echo "source ~/.bashrc"

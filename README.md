@@ -35,5 +35,51 @@ This repo is designed for the Raspberry Pi running Raspbian. It should work on a
 	- samba << file sharing with Windows, Mac and Linux
 		
 
-**uninstall.sh** - remove custom dotfiles and restore originals.
+**uninstall.sh** - removes basepi dotfiles and restores original dotfiles.
 - Does not remove installed packages or ~/scripts directory
+
+**Dot Files** - dot files (ie: .bashrc) are usually configuration (config) files used by various applications (bash, vnc, etc)
+
+**.bashrc** - primay config file for the command line terminal
+- most notible change is the appearance to be a little easier to use
+	
+	```
+	user@hostname:~$
+	```
+	*becomes*
+	```
+	┌─[user@hostname]─[current_working_directory]
+	└──╼ $
+	```
+
+**.basepi_bash_aliases** - added quick shortcode for common commands.
+	- do not modify this file, it will be overwritten when updateing basepi, modify ~/.bash_aliases instead
+	- to refresh bash with newly added aliases, run command:
+	```
+	source ~/.bashrc
+	```
+
+**.bash_exports** - set variables for apps and functions for use on the shell
+
+**scripts** - usually bash or python scripts used by cron or user containded in the scripts directory
+- this allows for easy organization of scripts and backups of those scripts
+
+**updatenotice.sh** - This is installed in the users crontab to run every Sunday at 1am.
+	This script looks to see if there are any updates for the Raspberry Pi and emails you the results
+	You must enter your email configuration in ~/.basepi/sendemail.conf for the script to work properly.
+
+
+## Raspberry Pi Initial Setup
+If you have not already done so, you should run the Raspberry Pi Configuration Tool before install of basepi or any other applications
+```
+sudo raspi-config
+```
+- Option 1: Change User password << change to something more familure
+- Option 2: Network Options
+	- Sub-Option 1: Hostname << set a unique name for the Raspberry Pi
+- Option 4: Localisation Options
+	- Sub-Option 2: Change Timezone << set to your local timezone
+- Option 5: Interfacing Options
+	- Sub-Option 2: SSH << enable ssh
+
+These are the bare basics you should need

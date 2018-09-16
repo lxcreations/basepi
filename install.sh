@@ -32,7 +32,9 @@ APTINSTALLS=""
 for file in $(find . -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
   if [ -e ~/$file ]; then
     echo "Backup original dotfile: "$file
-    mv -f ~/$file{,.dtbak}
+    if [ ! -h ~/$file ]; then
+      mv -f ~/$file{,.dtbak}
+    fi
   fi
   echo "Install custom dotfiles: "$file
   ln -s $PWD/$file ~/$file
@@ -105,7 +107,7 @@ if [ ! -e /usr/sbin/samba ]; then
 fi
 
 #install marked packages and log the install
-sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > ~/.basepi/logs/aptgetoninstall_\$\(date \+\%Y\%m\%d_\%H\%M\%S\).log 2>&1
+sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > ~/.basepi/logs/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log 2>&1
 
 #install the update notice script in crontab
 #SEE notes/updatenotice.txt for details
