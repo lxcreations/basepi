@@ -1,0 +1,11 @@
+--Great site for helping with Cron
+https://crontab.guru/
+https://crontab-generator.org/
+
+--See aliases (custom shortcuts)
+RUN: cat ~/.bash_aliases
+
+--Help with SysStat
+https://www.tecmint.com/sysstat-commands-to-monitor-linux/
+	--CPU usage
+	RUN: sudo iostat -c 2 2

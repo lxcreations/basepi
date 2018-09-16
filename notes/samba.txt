@@ -1,0 +1,28 @@
+RUN: sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bk
+RUN: sudo nano /etc/samba/smb.conf
+
+--copy into /etc/samba/smb.conf
+
+#start my samba config
+[global]
+netbios name = RasPi #can be your host name or id name of choice
+server string = RasPi File Center #decription for sharing
+workgroup = WORKGROUP #leave default unless you have changed your Windows workgroup
+
+[RasPiHome] #Share Name
+path = /home/pi
+comment = No comment
+browsable = yes
+writeable = yes
+create mask = 0777
+directory mask = 0777
+public = no
+#end my samba config
+
+--end copy
+
+--add samba user and pw
+RUN: sudo smbpasswd -a pi
+
+--restart samba
+RUN: sudo systemctl restart smbd

@@ -1,0 +1,28 @@
+RUN: sudo raspi-config
+-->select "Network Options"
+---->select "Hostname"
+
+--The hostname is a simple name to give to your Raspberry Pi (or any computer)
+	so you can easily recognize it. The hostname also shows up on your command
+	prompt so you know what system you are on.
+	
+--The hostname should be short and only consist of letters, numbers and hyphen (-)
+	Please note: RFCs mandate that a hostname's labels may contain 
+	only the ASCII letters 'a' through 'z' (case-insensitive),
+	the digits '0' through '9', and the hyphen.
+	Hostname labels cannot begin or end with a hyphen.
+	No other symbols, punctuation characters, or blank spaces are
+	permitted.
+
+--Many users create a theme for their network and name their systems (computers)
+	accordingly. Others use more conventional names like purpose or user based.
+	Here are some ideas to get you started
+	
+	THEME - Greek Gods
+		IE: Zues, Apollo, Nemesis, Athene, Hermes, Aphrodite
+		
+	THEME - User Based / Purpose
+		IE: Mom, Dad, Dad-Laptop, GardenPi, IOT-DoorWatch
+		
+https://namingschemes.com/
+https://en.wikipedia.org/wiki/Hostname

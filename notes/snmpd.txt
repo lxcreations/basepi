@@ -1,0 +1,22 @@
+sudo nano /etc/snmp/snmpd.conf
+
+Comment out this line:
+    #agentAddress  udp:127.0.0.1:161
+Add Below
+    agentAddress udp:161
+    
+Add Line: 
+    rocommunity public 192.168.0.0/24
+	#change "public" to any word you choose for better security and customization
+	#ie: rocommunity mypinet 192.168.0.0/24
+	#change 192.168.0.0/24 to fit your network
+	#if your ip address is 192.168.0.(some numner), then leave this as is
+    
+Comment out this line:
+    #rocommunity6 public  default   -V systemonly
+    
+Run snmpwalk -c public -v 2c "dns pi name or IP" system
+OR    
+Run snmpget -c public -v 2c "dns pi name or IP" MIB:NUM
+
+for more information on snmp>> https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol

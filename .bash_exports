@@ -1,0 +1,4 @@
+export TERM=xterm-256color
+export LESS='-R'
+export LESSOPEN='|~/.lessfilter %s'
+export EDITOR=/usr/bin/nano

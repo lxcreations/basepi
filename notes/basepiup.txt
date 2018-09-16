@@ -1,0 +1,15 @@
+RUN: chknup
+
+--chknup is a bash alias to update the LFR-ChickenPi package
+
+alias chknup='cd ~/LFR-ChickenPi; git checkout master; git reset --hard origin/master; git pull; ./install.sh; source ~/.bashrc; cd ~'
+
+--commands run in sequence
+	cd ~/LFR-ChickenPi << changes to the install directory
+	git checkout master << get master repo information
+	git reset --hard origin/master << reset the repo master key
+	git pull << get the latest version of repo
+	./install.sh << run the install for updates
+	source ~/.bashrc << update the bash shell with any changes
+	cd ~ << change to home directory
+
