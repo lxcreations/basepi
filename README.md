@@ -19,8 +19,8 @@ To install git, RUN:
 To install this repo, RUN:
 ```git clone https://github.com/lxcreations/basepi.git```
 
-**By Default, this should only be used on a Rasberry Pi running Raspian**
-This repo is designed for the Raspberry Pi running Raspian. It should work on any Raspian flavor, but it is untested. With little modification, this should be able to be installed on any Debian based system like Ubuntu or KDE Neon. With deeper modification, this could be used on any Linux flavor like OpenSuse or CentOS.
+**By Default, this should only be used on a Rasberry Pi running Raspbian**
+This repo is designed for the Raspberry Pi running Raspbian. It should work on any Raspbian flavor, but it is untested. With little modification, this should be able to be installed on any Debian based system like Ubuntu or KDE Neon. With deeper modification, this could be used on any Linux flavor like OpenSuse or CentOS.
 
 
 **install.sh** - install all dotfiles and software used on the Raspberry Pi in the users home directory, usually /home/pi

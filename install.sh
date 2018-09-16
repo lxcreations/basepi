@@ -14,7 +14,7 @@ ID="unknown"
 source /etc/os-release
 
 #Install ONLY if we are running Raspian
-if [ "$ID" != "raspian" ]; then
+if [ "$ID" != "raspbian" ]; then
   echo "ERROR: This is only tested with Raspberry Pi's running Raspian."
   echo "Install is exiting."
   # as a bonus, make our script exit with the right error code.
@@ -60,7 +60,7 @@ if [ ! -d ~/.basepi/logs ]; then
 fi
 
 #email config for basepi 
-if [ -e ~/.basepi/sendemail.conf ]; then
+if [ ! -e ~/.basepi/sendemail.conf ]; then
     cp $SOURCEDIR/config/sendemail.conf ~/.basepi/sendemail.conf
     echo "~/.basepi/sendemail.conf file created"
     echo "You must modify the sendemail configuration file"
