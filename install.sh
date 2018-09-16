@@ -103,7 +103,7 @@ if [ ! -e /usr/sbin/samba ]; then
 fi
 
 #install marked packages and log the install
-sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > ~/.basepi/logs/aptgetoninstall_$STAMP.log 2>&1
+sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > ~/.basepi/logs/aptgetoninstall_\$\(date \+\%Y\%m\%d_\%H\%M\%S\).log 2>&1
 
 #install the update notice script in crontab
 #SEE notes/updatenotice.txt for details

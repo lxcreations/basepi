@@ -17,7 +17,7 @@ for file in $(find . -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
 done
 
 #remove cron entries
-( crontab -l | grep -v -F "$UPDATESCRIPT" ) | crontab -
+( crontab -l | grep -v -F "$UPDATESCRIPTBASE" ) | crontab -
 rm -rf ~/.basepi
 echo "Uninstalled"
 echo "To refresh the bash console, run command"
