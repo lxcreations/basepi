@@ -4,7 +4,7 @@ Custom setting and basic applications used for Local Fields Ranch Raspberry Pi's
 This project was originally created for use on the Raspberry Pi's (RPi's) I use on my Egg Farm and Grow Op, Local Fields Ranch.
 With the support of other users, I have decided to make this repo a little more general and friendlier to new RPi users.
 
-Originally, this was only used for dotfiles (like .bashrc) on my Linux based systems and was enspired by [flipsidecreations/dotfiles] (https://github.com/flipsidecreations/dotfiles).
+Originally, this was only used for dotfiles (like .bashrc) on my Linux based systems and was enspired by [flipsidecreations/dotfiles](https://github.com/flipsidecreations/dotfiles).
 
 This quickly became more than just a repo for dotfiles to include the setup of new RPis with dotfiles, basic applications and custom scripts. Feel free to contant me with any questions or suggestions you may have.
 
