@@ -70,6 +70,7 @@ if [ ! -e ~/.basepi/sendemail.conf ]; then
     echo "You must modify the sendemail configuration file"
     echo "nano ~/.basepi/sendemail.conf"
 fi
+echo ""
 
 #if git is not installed, mark it for install
 if [ ! -e /usr/bin/git ]; then
@@ -109,7 +110,10 @@ if [ ! -e /usr/sbin/samba ]; then
 fi
 
 #install marked packages and log the install
-sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > ~/.basepi/logs/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log 2>&1
+if [ "$APTINSTALLS" != "" ]; then
+  sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > ~/.basepi/logs/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log 2>&1
+  echo ""
+fi
 
 #install the update notice script in crontab
 #SEE notes/updatenotice.txt for details
@@ -119,16 +123,19 @@ if [ -e /usr/bin/sendemail ]; then
 fi
 
 #display the current OS
-echo "Current OS Version"
-echo $PRETTY_NAME
+echo "Current OS Version: "$PRETTY_NAME
 
 #inform of installed packages
-echo "Installed base packages"
-echo $APTINSTALLS
+if [ "$APTINSTALLS" != "" ]; then
+  echo "Installed base packages"
+  echo $APTINSTALLS
+  echo ""
+fi
 
 #warn about changing the hostname from original
 if [ "$HOSTNAME" = "raspberrypi" ]; then
   echo "NOTES:hostname.txt-Hostname is set as default, you may want to change it to a specific name."
+  echo ""
 fi
 
 #inform about updating the currently used bash shell
