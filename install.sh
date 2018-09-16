@@ -36,8 +36,10 @@ for file in $(find . -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
       mv -f ~/$file{,.dtbak}
     fi
   fi
-  echo "Install custom dotfiles: "$file
-  ln -s $PWD/$file ~/$file
+  if [ ! -e ~/$file ]; then
+    echo "Install custom dotfiles: "$file
+    ln -s $PWD/$file ~/$file
+  fi
 done
 
 echo "Dotfiles installed"
