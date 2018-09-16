@@ -1,0 +1,10 @@
+Run in cron
+
+To view the cron job
+RUN: crontab -l
+
+To edit the cron job
+RUN: crontab -e
+
+This simple bash script looks to see if there are any updates for the Raspberry Pi and emails you the results.
+You must enter your email configuration in ~/.basepi/sendemail.conf for the script to work properly.
