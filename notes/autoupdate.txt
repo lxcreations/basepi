@@ -1,0 +1,3 @@
+On my systems, I have basepi check for updates and install them every day.
+This may be a little excessive for most users, but I wanted to let you know how to accomplish this.
+
