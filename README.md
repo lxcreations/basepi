@@ -68,6 +68,8 @@ This repo is designed for the Raspberry Pi running Raspbian. It should work on a
 	This script looks to see if there are any updates for the Raspberry Pi and emails you the results
 	You must enter your email configuration in ~/.basepi/sendemail.conf for the script to work properly.
 
+**autoupdate.sh** - Script to autoupdate basepi. Read notes/autoupdate.txt for usage
+
 
 ## Raspberry Pi Initial Setup
 If you have not already done so, you should run the Raspberry Pi Configuration Tool before install of basepi or any other applications
