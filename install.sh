@@ -63,7 +63,7 @@ for file in $(find . -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
   if [ ! -e ~/$file ]; then
     echo "Install custom dotfiles: "$file
     cp $file $INSTALLDIR/$INSTALLDOTS;
-    ln -s $INSTALLDIR/$file ~/$file
+    ln -s $INSTALLDIR/$INSTALLDOTS/$file ~/$file
   fi
 done
 
