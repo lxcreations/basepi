@@ -45,17 +45,19 @@ APTINSTALLS=""
 
 #lets backup the original dot files to restore on uninstall
 #and install the basepi dot files
+if [ ! -d $INSTALLDIR ]; then
+	mkdir -p $INSTALLDIR/$INSTALLDOTS
+	mkdir -p $INSTALLDIR/$INSTALLLOGS
+	mkdir -p $INSTALLDIR/$INSTALLSCRIPTS
+	echo "$INSTALLDIR directories created"
+fi
+
 for file in $(find . -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
   if [ -e ~/$file ]; then
     echo "Backup original dotfile: "$file
     if [ ! -h ~/$file ]; then
       mv -f ~/$file{,.dtbak}
     fi
-  fi
-  
-  if [ ! -d $INSTALLDIR ]; then
-    mkdir -p $INSTALLDIR/{$INSTALLDOTS,$INSTALLLOGS,$INSTALLSCRIPTS}
-    echo "$INSTALLDIR directories created"
   fi
   
   if [ ! -e ~/$file ]; then
@@ -179,4 +181,4 @@ fi
 #inform about updating the currently used bash shell
 echo "To refresh the bash console, run command"
 echo "source ~/.bashrc"
-source ~/.bashrc
+sh source ~/.bashrc
