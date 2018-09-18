@@ -71,7 +71,7 @@ echo "Dotfiles installed"
 echo ""
 
 for sfile in $(find $SOURCEDIR/scripts/ -maxdepth 1 -name "*" -type f  -printf "%f\n" ); do
-  cp $sfile $INSTALLDIR/$INSTALLSCRIPTS
+  cp $SOURCEDIR/scripts/$sfile $INSTALLDIR/$INSTALLSCRIPTS
 done
 
 echo "Scripts installed"
