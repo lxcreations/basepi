@@ -26,9 +26,12 @@ while true; do
     esac
 done
 
+#display the current OS
+echo "Current OS Version: "$PRETTY_NAME
+
 #Install ONLY if we are running Raspian
 if [ "$ID" != "raspbian" ]; then
-  echo "ERROR: This is only tested with Raspberry Pi's running Raspian."
+  echo "ERROR: This is only tested the Raspberry Pi running Raspian."
   echo "Install is exiting."
   # as a bonus, make our script exit with the right error code.
   exit ${1}
@@ -49,10 +52,16 @@ for file in $(find . -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
       mv -f ~/$file{,.dtbak}
     fi
   fi
+  
+  if [ ! -d $INSTALLDIR ]; then
+    mkdir -p $INSTALLDIR/{$INSTALLDOTS,$INSTALLLOGS,$INSTALLSCRIPTS}
+    echo "$INSTALLDIR directories created"
+  fi
+  
   if [ ! -e ~/$file ]; then
     echo "Install custom dotfiles: "$file
-    cp $file ~/.basepi
-    ln -s ~/.basepi/$file ~/$file
+    cp $file $INSTALLDIR/$INSTALLDOTS;
+    ln -s $INSTALLDIR/$file ~/$file
   fi
 done
 
@@ -60,35 +69,17 @@ echo "Dotfiles installed"
 echo ""
 
 #create the scripts directory
-if [ ! -d ~/scripts ]; then
-    mkdir ~/scripts
-    echo "~/scripts directory Created"
-fi
-
-#create the basepi local directory
-if [ ! -d ~/.basepi ]; then
-  mkdir ~/.basepi
-  echo "~/.basepi directory created"
-fi
-
-#logfiles for basepi
-if [ ! -d ~/.basepi/logs ]; then
-  mkdir ~/.basepi/logs
-  echo "~/.basepi/logs directory created"
-fi
-
-#logfiles for basepi
-if [ ! -d ~/.basepi/scripts ]; then
-  mkdir ~/.basepi/scripts
-  echo "~/.basepi/scripts directory created"
+if [ ! -d $USERSCRIPTSDIR ]; then
+    mkdir $USERSCRIPTSDIR
+    echo "$USERSCRIPTSDIR directory Created"
 fi
 
 #email config for basepi 
-if [ ! -e ~/.basepi/sendemail.conf ]; then
-    cp $SOURCEDIR/config/sendemail.conf ~/.basepi/sendemail.conf
-    echo "~/.basepi/sendemail.conf file created"
+if [ ! -e $INSTALLDIR/sendemail.conf ]; then
+    cp $SOURCEDIR/config/sendemail.conf $INSTALLDIR/sendemail.conf
+    echo "$INSTALLDIR/sendemail.conf file created"
     echo "You must modify the sendemail configuration file"
-    echo "nano ~/.basepi/sendemail.conf"
+    echo "nano $INSTALLDIR/sendemail.conf"
 fi
 echo ""
 
@@ -120,30 +111,30 @@ fi
 #if snmp is not installed, mark it for install
 if [ ! -e /usr/sbin/snmpd ]; then
     APTINSTALLS="$APTINSTALLS snmpd snmp"
-    echo "NOTES:snmpd.txt-Modify /etc/snmp/snmpd.conf for best results of snmp monitoring"
 fi
 
 #if samba is not installed, mark it for install
 if [ ! -e /usr/sbin/samba ]; then
     APTINSTALLS="$APTINSTALLS samba samba-common-bin"
-    echo "NOTES:samba.txt-Modify /etc/samba/smb.conf for best results of file sharing"
 fi
 
 echo "These packages need to be installed."
 echo $APTINSTALLS
 
 while true; do
-    read -p "Would you like to install these packages via apt-get? [y/n]: " doinstall
+    read -p "Would you like to install these via apt-get? [y/n]: " doinstall
     case $doinstall in
         [Yy]* )
             echo "installing";
             echo
             if [ "$APTINSTALLS" != "" ]; then
-              AGINSLOG=~/.basepi/logs/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log
+              AGINSLOG=~$INSTALLDIR/$INSTALLLOGS/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log
               sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > $AGINSLOG 2>&1
               echo 
               echo "====================================================================="
               echo "Review $AGINSLOG for install details"
+              echo "NOTES:snmpd.txt-Modify /etc/snmp/snmpd.conf for best results of snmp monitoring"
+              echo "NOTES:samba.txt-Modify /etc/samba/smb.conf for best results of file sharing"
               echo "====================================================================="
               echo 
             fi
@@ -152,7 +143,6 @@ while true; do
         * ) echo "Please answer y for yes or n for no.";;
     esac
 done
-#install marked packages and log the install
 
 
 #install the update notice script in crontab
@@ -179,16 +169,6 @@ while true; do
     esac
 done
 
-
-#display the current OS
-echo "Current OS Version: "$PRETTY_NAME
-
-#inform of installed packages
-if [ "$APTINSTALLS" != "" ]; then
-  echo "Installed base packages"
-  echo $APTINSTALLS
-  echo ""
-fi
 
 #warn about changing the hostname from original
 if [ "$HOSTNAME" = "raspberrypi" ]; then
