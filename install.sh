@@ -138,7 +138,7 @@ while true; do
             echo
             if [ "$APTINSTALLS" != "" ]; then
               AGINSLOG=~$INSTALLDIR/$INSTALLLOGS/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log
-              sudo apt-get update; sudo apt-get install -yq $APTINSTALLS > $AGINSLOG 2>&1
+              sudo apt-get update; sudo apt-get install -y $APTINSTALLS > $AGINSLOG 2>&1
               echo 
               echo "====================================================================="
               echo "Review $AGINSLOG for install details"
