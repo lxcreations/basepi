@@ -29,7 +29,8 @@ alias showalias='cat $HOME/.bash_alias'
 alias bpshowalias='cat $HOME/.basepi_bash_alias'
 alias shutd='sudo shutdown -P now'
 alias chx='chmod +x'
-alias 'ps?'='ps aux | grep '
+alias free="free -mt"
+alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 #custom Functions ===============================================================================
 #extract various compressed archives

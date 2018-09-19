@@ -30,19 +30,18 @@ cd /tmp
 git clone https://github.com/lxcreations/basepi.git
 cd /tmp/basepi
 
-SOURCEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 #include the baspi config file
-source $SOURCEDIR/config/basepi.conf
+source /tmp/basepi/config/basepi.conf
 
-for file in $(find $SOURCEDIR/. -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
-	cp -uv $SOURCEDIR/$file $INSTALLDIR/$INSTALLDOTS;
+for file in $(find /tmp/basepi/. -maxdepth 1 -name ".*" -type f  -printf "%f\n" ); do
+	cp -uv /tmp/basepi/$file $INSTALLDIR/$INSTALLDOTS;
 done
 
-for sfile in $(find $SOURCEDIR/scripts/ -maxdepth 1 -name "*" -type f  -printf "%f\n" ); do
-	cp -uv $SOURCEDIR/scripts/$sfile $INSTALLDIR/$INSTALLSCRIPTS
+for sfile in $(find /tmp/basepi/scripts/ -maxdepth 1 -name "*" -type f  -printf "%f\n" ); do
+	cp -uv /tmp/basepi/scripts/$sfile $INSTALLDIR/$INSTALLSCRIPTS
 done
 
-cp -uv version $INSTALLDIR
+cp -uv /tmp/basepi/version $INSTALLDIR
 
 rm -rf /tmp/basepi
 
