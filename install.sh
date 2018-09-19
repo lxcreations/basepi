@@ -13,6 +13,13 @@ ID="unknown"
 #include OS details
 source /etc/os-release
 
+#vars used for update.conf
+#automatically install needed packages via apt-get
+UPDATE_AGAUTO=0
+#send email notifications about RPi system updates
+UPDATE_SYSUPEMAIL=0
+
+
 echo "BasePi install script."
 echo "BasePi should only be installed on a Raspberry Pi running Raspian"
 echo "Please review the README.md and text files in the notes directory for more details before installing."
@@ -137,16 +144,21 @@ while true; do
             echo "installing";
             echo
             if [ "$APTINSTALLS" != "" ]; then
-              AGINSLOG=~$INSTALLDIR/$INSTALLLOGS/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log
+              AGINSLOG=$INSTALLDIR/$INSTALLLOGS/aptgetoninstall_$(date +%Y%m%d_%H%M%S).log
               sudo apt-get update; sudo apt-get install -y $APTINSTALLS > $AGINSLOG 2>&1
               echo 
               echo "====================================================================="
               echo "Review $AGINSLOG for install details"
+              echo
+              echo "This choice is marked as yes in your basepi update config file"
+              echo "$INSTALLDIR/update.conf"
+              echo
               echo "NOTES:snmpd.txt-Modify /etc/snmp/snmpd.conf for best results of snmp monitoring"
               echo "NOTES:samba.txt-Modify /etc/samba/smb.conf for best results of file sharing"
               echo "====================================================================="
               echo 
             fi
+            UPDATE_AGAUTO=1
             break;;
         [Nn]* ) echo "skipping"; break;;
         * ) echo "Please answer y for yes or n for no.";;
@@ -167,10 +179,11 @@ while true; do
             echo "installing";
             echo
             if [ -e /usr/bin/sendemail ]; then
-                ( crontab -l | grep -v -F "$UPDATESCRIPT" ; echo "$UPDATECRON" ) | crontab -
+              UPDATE_SYSUPEMAIL=1
+              ( crontab -l | grep -v -F "$UPDATESCRIPT" ; echo "$UPDATECRON" ) | crontab -
             else
-                echo "Sendemail package is missing. Cronjob will not be installed."
-                echo "RUN: sudo apt-get install sendemail to install"
+              echo "Sendemail package is missing. Cronjob will not be installed."
+              echo "RUN: sudo apt-get install sendemail to install"
             fi
             break;;
         [Nn]* ) echo "skipping"; break;;
@@ -178,13 +191,22 @@ while true; do
     esac
 done
 
+#add variables to config file
+touch $INSTALLDIR/$UPDATECONF
+echo "UPDATE_AGAUTO=$UPDATE_AGAUTO" >> $INSTALLDIR/$UPDATECONF
+echo "UPDATE_SYSUPEMAIL=$UPDATE_SYSUPEMAIL" >> $INSTALLDIR/$UPDATECONF
 
 #warn about changing the hostname from original
 if [ "$HOSTNAME" = "raspberrypi" ]; then
   echo "NOTES:hostname.txt-Hostname is set as default, you may want to change it to a specific name."
-  echo ""
+  echo 
 fi
 
 #inform about updating the currently used bash shell
 echo "To refresh the bash console, run command"
 echo "source ~/.bashrc"
+echo
+echo "To remove basepi, run the uninstaller in this directory."
+echo "run command: ./uninstall.sh"
+echo
+echo "To update basepi, run command: basepiup from the shell"
