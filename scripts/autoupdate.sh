@@ -44,6 +44,8 @@ done
 
 cp -uv version $INSTALLDIR
 
+rm -rf /tmp/basepi
+
 echo "Update complete." >> $MSGFILE
 echo "For the latet release notes, view the readme page at https://github.com/lxcreations/basepi." >> $MSGFILE
 
