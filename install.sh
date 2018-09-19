@@ -202,6 +202,19 @@ done
 touch $INSTALLDIR/$UPDATECONF
 echo "UPDATE_AGAUTO=$UPDATE_AGAUTO" >> $INSTALLDIR/$UPDATECONF
 echo "UPDATE_SYSUPEMAIL=$UPDATE_SYSUPEMAIL" >> $INSTALLDIR/$UPDATECONF
+while true; do
+    read -p "Would you like to auto-install basepi updates? [y/n]: " doinstall
+    case $doinstall in
+        [Yy]* )
+            echo "UPDATE_BASEPI=1" >> $INSTALLDIR/$UPDATECONF;
+            ( crontab -l | grep -v -F "$BASEPIUPDATESCRIPT" ; echo "$BASEPIUPDATECRON" ) | crontab -
+            break;;
+        [Nn]* ) echo "UPDATE_BASEPI=0" >> $INSTALLDIR/$UPDATECONF;
+            echo "Read notes/basepiupdate.txt for manual updates"
+            break;;
+        * ) echo "Please answer y for yes or n for no.";;
+    esac
+done
 
 #warn about changing the hostname from original
 if [ "$HOSTNAME" = "raspberrypi" ]; then

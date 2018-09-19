@@ -18,6 +18,7 @@ done
 
 #remove cron entries
 ( crontab -l | grep -v -F "$UPDATESCRIPTBASE" ) | crontab -
+( crontab -l | grep -v -F "$BASEPIUPDATESCRIPTBASE" ) | crontab -
 
 #remove basepi config directory
 rm -rf ~/.basepi
