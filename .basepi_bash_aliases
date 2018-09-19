@@ -2,13 +2,17 @@ alias ll='ls -l'
 alias la='ls -ACF'
 alias l='ls -CF'
 alias dd='dd status=progress'
-alias _='sudo'
+alias !='sudo '
 alias less='less -R'
 alias basepiup='cd ~/basepi; git reset --hard origin/master; git pull; ./install.sh; source ~/.bashrc; cd ~'
 alias sdd='df -h /'
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 alias path='echo -e ${PATH//:/\\n}'
+
+#USE WITH EXTREAM CAUSION
 alias god='sudo -i'
+
+#added to make useing apt-get friendlier
 alias apt-install='sudo apt-get install'
 alias apt-search='apt-cache search'
 alias apt-show='apt-cache show'
@@ -17,3 +21,36 @@ alias apt-remove='sudo apt-get remove'
 alias apt-up='sudo apt-get update'
 alias apt-autoup='sudo apt-get update; sudo apt-get upgrade -y'
 alias apt-fullup='sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove'
+
+#Just for fun
+alias gohome='cd ~; clear'
+alias reload='source $HOME/.bashrc'
+alias showalias='cat $HOME/.bash_alias'
+alias bpshowalias='cat $HOME/.basepi_bash_alias'
+alias shutd='sudo shutdown -P now'
+alias chx='chmod +x'
+alias 'ps?'='ps aux | grep '
+
+#custom Functions ===============================================================================
+#extract various compressed archives
+ex () {
+  if [ -f $1 ] ; then
+      case $1 in
+          *.tar.bz2)   tar xvjf $1    ;;
+          *.tar.gz)    tar xvzf $1    ;;
+          *.bz2)       bunzip2 $1     ;;
+          *.rar)       unrar x $1     ;;
+          *.gz)        gunzip $1      ;;
+          *.tar)       tar xvf $1     ;;
+          *.tbz2)      tar xvjf $1    ;;
+          *.tgz)       tar xvzf $1    ;;
+          *.zip)       unzip $1       ;;
+          *.Z)         uncompress $1  ;;
+          *.7z)        7z x $1        ;;
+          *.exe)       cabextract $1  ;;
+          *)           echo "'$1': unrecognized file compression" ;;
+      esac
+  else
+      echo "'$1' is not a valid file"
+  fi
+}
