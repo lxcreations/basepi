@@ -83,7 +83,10 @@ if [ ! -d $INSTALLDIR ]; then
 else
   echo "It looks as though you have already installed basepi.
   If you would like to re-install, please run the uninstall.sh
-  script first."
+  script first.
+  If you are trying to update basepi, run the basepiup command
+  from the bash shell"
+  exit 1
 fi
 
 echo
@@ -101,7 +104,7 @@ if [ ! -e $INSTALLDIR/sendemail.conf ]; then
     You must modify the sendemail configuration file
     nano $INSTALLDIR/sendemail.conf"
 fi
-echo ""
+echo 
 
 #if git is not installed, mark it for install
 if [ ! -e /usr/bin/git ]; then
